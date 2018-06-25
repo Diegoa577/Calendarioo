@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Neucha" rel="stylesheet">
+  </head>
+  <body>
+    <div class="loginContainer">
+      <div class="loginTitle">Sign In</div>
+      <div class="fields-Container">
+        <input type="text" id="user" placeholder="Usuario..." />
+        <input type="password" id="pass" placeholder="Contraseña..." />
+        <input type="text" id="nombre" placeholder="Nombres..." />
+        <input type="text" id="apellido" placeholder="Apellidos..." />
+        <button id="signin" class="loginButton">Sign In</button>
+      </div>
+    </div>
+    <script src="js/jquery.js"></script>
+    <script>
+        var nombreUsuario = $('#user')
+        var pass = $('#pass')
+        var nombre = $('#nombre')
+        var apellidos = $('#apellido')
+        $('.loginButton').on('click', function(event) {
+            if (nombreUsuario.val() != "" && pass.val() != "" && nombre.val() != "" && apellidos.val() != "") {
+                $.post('/events/newUser',{usuario: nombreUsuario.val(), pass: pass.val(), nombres: nombre.val(), apellidos: apellidos.val()}, function(response) {
+                    if (response == "Registro guardado") {
+                        window.location.href = "http://localhost:3000/"
+                    }else{
+                      alert("Error al registrar nuevo usuario");
+                    }
+                })
+            } else {
+                alert("Complete todos los campos")
+            }
+        })
+    </script>
+  </body>
+</html>
